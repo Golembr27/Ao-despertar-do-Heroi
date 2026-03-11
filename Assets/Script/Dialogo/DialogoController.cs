@@ -21,36 +21,31 @@ public class DialogoController : MonoBehaviour
     public int i;
     [SerializeField] public bool ativarDialogo = false;
     public int dialogoMaximo;
-
     public List<Dialogo> dialogos;
+    public int trocarDialogo;
 
     [SerializeField] int numLista;
     private void Start()
     {
-        //i = NPC.Instance.numNPC;
         numLista = 0;
     }
 
     public void QualNPC()
     {
-        Debug.Log(dialogos.Count);
-        for (i = -1; i <= dialogos.Count; i++)
+        
+        for (i = -1; i <= trocarDialogo; i++)
         {
-            //dialogoMaximo = dialogos[indexNPC].listaTexto.Count;
-            num = dialogos.Count;
+            num = trocarDialogo;
             tmNome.text = SistemaDialogo.Instance.dialogos[num].textoNome;
             imagemPerfil.texture = SistemaDialogo.Instance.dialogos[num].imagemDoPerfil;
             textoDialogo.text = SistemaDialogo.Instance.dialogos[numLista].listaTexto[numLista];
-            Debug.Log(num);
-            Debug.Log(tmNome);
-            Debug.Log(textoDialogo);
+
         }
     }
 
     public void ProximoDialogo()
     {
-        numLista++;
-        textoDialogo.text = SistemaDialogo.Instance.dialogos[i].listaTexto[numLista];
+        
     }
 
     public void ReiniciarDialogo()
@@ -63,7 +58,8 @@ public class DialogoController : MonoBehaviour
     {
         if (ativarDialogo && Input.GetKeyDown(KeyCode.E) && numLista <= dialogos.Count + 1)
         {
-            ProximoDialogo();
+            numLista++;
+            textoDialogo.text = SistemaDialogo.Instance.dialogos[num].listaTexto[numLista];
         }
     }
 }

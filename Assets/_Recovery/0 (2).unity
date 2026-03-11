@@ -1616,7 +1616,6 @@ MonoBehaviour:
   ativarDialogo: 0
   dialogoMaximo: 0
   dialogos: []
-  trocarDialogo: 0
   numLista: 0
 --- !u!114 &798989394
 MonoBehaviour:
@@ -3706,7 +3705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   objDialogo: {fileID: 1621379595}
-  numNPC: 0
+  numNPC: 1
 --- !u!136 &1781810012
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3928,7 +3927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   objDialogo: {fileID: 1621379595}
-  numNPC: 1
+  numNPC: 0
 --- !u!1 &1816804138
 GameObject:
   m_ObjectHideFlags: 0

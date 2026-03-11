@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public static NPC Instance;
     [SerializeField] GameObject objDialogo;
-    private void Awake()
-    {
-        //objDialogo.gameObject.SetActive(false);
-        Instance = this;
-    }
     public int numNPC;
+
+    private void Start()
+    {
+        DialogoController.Instance.trocarDialogo = numNPC;
+    }
 
     private void OnTriggerEnter(Collider c)
     {
         if (c.CompareTag("Player"))
         {
+            DialogoController.Instance.trocarDialogo = numNPC;
             DialogoController.Instance.ativarDialogo = true;
             objDialogo.gameObject.SetActive(true);
-            
+            DialogoController.Instance.ReiniciarDialogo();
         }
     }
 
