@@ -2,18 +2,40 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class DialigoAnimacao : MonoBehaviour
+public class DialogoAnimacao : MonoBehaviour
 {
-    [SerializeField] float tipoDelay = 0.05f;
-    [SerializeField] TextMeshProUGUI textoObjeto;
+    public static DialogoAnimacao Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    [SerializeField] private float tipoDelay = 0.5f;
+    [SerializeField] public TextMeshProUGUI textoAnimacao;
+    DialogoController dc;
+
+    public bool animacao = false;
 
     public string textoCompleto;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        textoAnimacao = DialogoController.Instance.textoDialogo;
+        dc = GetComponent<DialogoController>();
     }
 
-    
+    public void AnimacaoTexto()
+    {
+        StartCoroutine(TypeText());  
+    }
+
+    public IEnumerator TypeText()
+    {
+        textoAnimacao.maxVisibleCharacters = 0;
+        for (int i = 0; i <= SistemaDialogo.Instance.dialogos[dc.num].listaTexto[dc.numLista].Length; i++)
+        {
+            textoAnimacao.maxVisibleCharacters = i;
+            yield return new WaitForSeconds(tipoDelay);
+        }
+    }
 }

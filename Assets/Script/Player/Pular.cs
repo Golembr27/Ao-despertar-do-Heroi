@@ -47,7 +47,9 @@ public class Pular : MonoBehaviour
     [SerializeField] private LayerMask colisaoLayer;
     [SerializeField] private float forcaPulo = 3f;
     [SerializeField] private bool estaNoChao;
-    [SerializeField] private float forcaY = -9.81f;
+    [SerializeField] private float forcaY = 0;
+    [SerializeField] private float gravidade = -9.81f;
+    [SerializeField] private float pesoPersonagem;
     public KeyCode tecla = KeyCode.None;
     private CharacterController cc;
     Animator an;
@@ -60,18 +62,16 @@ public class Pular : MonoBehaviour
 
     private void Update()
     {
-        
         estaNoChao = Physics.CheckSphere(peDoPersonagem.position, 0.3f, colisaoLayer);
-        an.SetBool("estanoChao", estaNoChao);
-        if (Input.GetKeyDown(tecla) && estaNoChao)
+        //an.SetBool("estanoChao", estaNoChao);
+       if(estaNoChao)
         {
-            forcaY = forcaPulo;
-            an.SetTrigger("saltar");
+            pesoPersonagem = 0;
         }
-
-        if(forcaY > -9.81f)
+        else
         {
-            forcaY += -9.81f * Time.deltaTime;
+            pesoPersonagem = gravidade;
+            forcaY -= pesoPersonagem;
         }
         cc.Move(new Vector3(0f, forcaY, 0f) * Time.deltaTime);
     }
