@@ -1939,8 +1939,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401ef6dc402df8c4790cbc5330c1e085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialigoAnimacao
-  tipoDelay: 0.05
-  textoAnimacao: {fileID: 0}
+  tipoDelay: 1
+  textoAnimacao: {fileID: 1599738327}
   animacao: 0
   textoCompleto: 
 --- !u!1 &832575517

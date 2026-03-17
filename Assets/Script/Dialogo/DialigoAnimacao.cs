@@ -31,6 +31,7 @@ public class DialogoAnimacao : MonoBehaviour
 
     public IEnumerator TypeText()
     {
+        dc.PararCorotinaDaAnimacao();
         textoAnimacao.maxVisibleCharacters = 0;
         for (int i = 0; i <= SistemaDialogo.Instance.dialogos[dc.num].listaTexto[dc.numLista].Length; i++)
         {

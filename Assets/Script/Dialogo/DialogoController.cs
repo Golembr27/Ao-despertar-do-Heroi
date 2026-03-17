@@ -66,7 +66,11 @@ public class DialogoController : MonoBehaviour
 
     public void PararCorotinaDaAnimacao()
     {
-        StopCoroutine(DialogoAnimacao.Instance.TypeText());
+        if(pularDialogo == true && Input.GetKeyDown(KeyCode.E))
+        {
+            StopCoroutine(DialogoAnimacao.Instance.TypeText());
+            pularDialogo = false;
+        }
     }
 
     public void AcabarComOTexto()
@@ -79,13 +83,8 @@ public class DialogoController : MonoBehaviour
     {
         if (ativarDialogo && Input.GetKeyDown(KeyCode.E) && numLista <= dialogos.Count + 1)
         {
-            if(pularDialogo == false)
-            {
-                ProximoDialogo();
-            } else if(pularDialogo == true)
-            {
-                AcabarComOTexto();
-            }
+            pularDialogo = true;
+            ProximoDialogo();
         }
     }
 }
