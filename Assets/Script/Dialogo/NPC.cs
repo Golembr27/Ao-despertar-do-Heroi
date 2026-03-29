@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    public static NPC Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField] GameObject objDialogo;
     public int numNPC;
 
@@ -16,7 +22,7 @@ public class NPC : MonoBehaviour
         {
             DialogoController.Instance.trocarDialogo = numNPC;
             DialogoController.Instance.ativarDialogo = true;
-            objDialogo.gameObject.SetActive(true);
+            AtivarDialogo();
             DialogoController.Instance.ReiniciarDialogo();
         }
     }
@@ -24,7 +30,17 @@ public class NPC : MonoBehaviour
     private void OnTriggerExit(Collider c)
     {
         DialogoController.Instance.ativarDialogo = false;
-        objDialogo.gameObject.SetActive(false);
+        DesativarDialogo();
         DialogoController.Instance.ReiniciarDialogo();
+    }
+
+    public void AtivarDialogo()
+    {
+        objDialogo.gameObject.SetActive(true);
+    }
+
+    public void DesativarDialogo()
+    {
+        objDialogo.gameObject.SetActive(false);
     }
 }

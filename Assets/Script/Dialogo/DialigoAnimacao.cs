@@ -20,18 +20,21 @@ public class DialogoAnimacao : MonoBehaviour
 
     private void Start()
     {
-        textoAnimacao = DialogoController.Instance.textoDialogo;
         dc = GetComponent<DialogoController>();
     }
 
-    public void AnimacaoTexto()
+    public void AtivarAnimacaoTexto()
     {
-        StartCoroutine(TypeText());  
+        StartCoroutine(TypeText());
+    }
+
+    public void DesativarAnimacaoTexto()
+    {
+        StopCoroutine(TypeText());
     }
 
     public IEnumerator TypeText()
     {
-        dc.PararCorotinaDaAnimacao();
         textoAnimacao.maxVisibleCharacters = 0;
         for (int i = 0; i <= SistemaDialogo.Instance.dialogos[dc.num].listaTexto[dc.numLista].Length; i++)
         {

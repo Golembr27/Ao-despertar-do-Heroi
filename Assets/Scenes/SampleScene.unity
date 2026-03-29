@@ -1891,12 +1891,16 @@ MonoBehaviour:
   textoDialogo: {fileID: 1599738327}
   imagemPerfil: {fileID: 842342348}
   ativarDialogo: 0
-  pularDialogo: 0
+  proximoDialogo: 0
+  acabouODialogo: 0
   dialogoMaximo: 0
   trocarDialogo: 0
+  lista: 0
   dialogos: []
+  listaTexto: []
   num: 0
   numLista: 0
+  numDialogoFinal: 1
 --- !u!114 &798989394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1910,22 +1914,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SistemaDialogo
   dialogos:
-  - textoNome: Jorge
-    imagemDoPerfil: {fileID: 2800000, guid: 4884f041d3ea20845abfded679b3e9b7, type: 3}
+  - textoNome: Carlos
+    imagemDoPerfil: {fileID: 2800000, guid: fd09957580ac4326916010f1f260975b, type: 3}
     listaTexto:
-    - Texto01
-    - Texto02
-    - Texto03
-    - Texto03
-    - Texto03
-    - Texto03
+    - texto1
+    - texto
+    - texto
+    - texto4
+    - texto5
+    - texto6
     numMaximo: 0
-  - textoNome: mateus
-    imagemDoPerfil: {fileID: 2800000, guid: 53901439b2ea63f4b94b52ef6ac34cf3, type: 3}
+  - textoNome: Julieti
+    imagemDoPerfil: {fileID: 2800000, guid: bb8dfcd263ad4eb383a33d74a720be6f, type: 3}
     listaTexto:
-    - Texto01
-    - Texto02
-    - Texto03
+    - texto1
+    - texto2
+    - texto3
+    - texto4
+    - texto5
+    - texto6
     numMaximo: 0
 --- !u!114 &798989395
 MonoBehaviour:
@@ -1939,7 +1946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401ef6dc402df8c4790cbc5330c1e085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialigoAnimacao
-  tipoDelay: 1
+  tipoDelay: 0.05
   textoAnimacao: {fileID: 1599738327}
   animacao: 0
   textoCompleto: 

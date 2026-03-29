@@ -23,68 +23,118 @@ public class DialogoController : MonoBehaviour
     [SerializeField] RawImage imagemPerfil;
 
     [SerializeField] public bool ativarDialogo = false;
-    [SerializeField] private bool pularDialogo = false;
+    [SerializeField] private bool proximoDialogo = false;
+    [SerializeField] private bool acabouODialogo = false;
 
     public int dialogoMaximo;
     public int trocarDialogo;
+    [SerializeField]int lista;
 
     public List<Dialogo> dialogos;
+    public string[] listaTexto;
 
     [SerializeField] public int num;
     [SerializeField] public int numLista;
+    [SerializeField] private int numDialogoFinal = 1;
+
     private void Start()
     {
+        var dialogoAtual = SistemaDialogo.Instance.dialogos[num];
+        lista = dialogoAtual.listaTexto.Count();
+        acabouODialogo = false;
+        numDialogoFinal = 0;
         numLista = 0;
+        num = 0;
+        //QualNPC();
     }
 
     public void QualNPC()
     {
         for (int i = -1; i <= trocarDialogo; i++)
         {
-            num = trocarDialogo;
-            tmNome.text = SistemaDialogo.Instance.dialogos[num].textoNome;
-            imagemPerfil.texture = SistemaDialogo.Instance.dialogos[num].imagemDoPerfil;
-            textoDialogo.text = SistemaDialogo.Instance.dialogos[numLista].listaTexto[numLista];
-            DialogoAnimacao.Instance.AnimacaoTexto();
+            if(proximoDialogo == false)
+            {
+                num = trocarDialogo;
+                tmNome.text = SistemaDialogo.Instance.dialogos[num].textoNome;
+                imagemPerfil.texture = SistemaDialogo.Instance.dialogos[num].imagemDoPerfil;
+                MudarDialogo();
+                proximoDialogo = true;
+            }
         }
     }
 
-    public void ProximoDialogo()
+    public void MudarDialogo()
     {
-        numLista++;
-        textoDialogo.text = SistemaDialogo.Instance.dialogos[num].listaTexto[numLista];
-        DialogoAnimacao.Instance.AnimacaoTexto();
-        pularDialogo = true;
+        if(lista > 0)
+        {
+            textoDialogo.text = SistemaDialogo.Instance.dialogos[num].listaTexto[numLista];
+            AtivarAnimacaoTexto();
+        }
     }
 
     public void ReiniciarDialogo()
     {
-        pularDialogo = true;
+        var dialogoAtual = SistemaDialogo.Instance.dialogos[num];
+        lista = dialogoAtual.listaTexto.Count();
+        proximoDialogo = false;
+        acabouODialogo = false;
+        numDialogoFinal = 0;
         numLista = 0;
+        num = 0;
         QualNPC();
     }
 
-    public void PararCorotinaDaAnimacao()
+    public void ProximoDialogo()
     {
-        if(pularDialogo == true && Input.GetKeyDown(KeyCode.E))
+        if(lista > 0)
         {
-            StopCoroutine(DialogoAnimacao.Instance.TypeText());
-            pularDialogo = false;
+            numLista++;
+            MudarDialogo();
         }
     }
 
-    public void AcabarComOTexto()
+    public void AcabouDialogo()
     {
-        PararCorotinaDaAnimacao();
-        DialogoAnimacao.Instance.textoAnimacao.maxVisibleCharacters = SistemaDialogo.Instance.dialogos[num].listaTexto[numLista].Length;
-        pularDialogo = false;
+        lista--;
+        if (lista <= 0)
+        {
+            acabouODialogo = true;
+            NPC.Instance.DesativarDialogo();
+        }
     }
+
+    //VOID DialogoAnimacao
+    public void DesativarAnimacaoTexto()
+    {
+        DialogoAnimacao.Instance.DesativarAnimacaoTexto();
+    }
+
+    public void AtivarAnimacaoTexto()
+    {
+        DialogoAnimacao.Instance.AtivarAnimacaoTexto();
+    }
+    //VOID DialogoAnimacao
+
+    public void IniciarDialogo()
+    {
+        var dialogoAtual = SistemaDialogo.Instance.dialogos[num];
+        if (acabouODialogo == false && ativarDialogo && Input.GetKeyDown(KeyCode.E))
+        {
+            if (proximoDialogo == false)
+            {
+                AcabouDialogo();
+                QualNPC();
+            }
+            else if (proximoDialogo == true)
+            {
+                AcabouDialogo();
+                ProximoDialogo();
+            }
+        }
+    }
+
     private void Update()
     {
-        if (ativarDialogo && Input.GetKeyDown(KeyCode.E) && numLista <= dialogos.Count + 1)
-        {
-            pularDialogo = true;
-            ProximoDialogo();
-        }
+        IniciarDialogo();
     }
 }
